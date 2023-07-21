@@ -71,6 +71,7 @@ class CourseControllerUser extends Controller
 
         //jika punya permission untuk lihat atau punya course dan sudah bayar
         if ($userCourse) {
+
             $nextChapter = $chapter + 1;
 
             // Query untuk mendapatkan chapter terakhir
