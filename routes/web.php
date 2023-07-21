@@ -4,9 +4,11 @@
 use App\Http\Controllers\Author\AuthorController;
 use App\Http\Controllers\Author\CourseController;
 use App\Http\Controllers\Author\LessonController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CourseControllerUser;
+use App\Http\Controllers\TransactionController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -35,10 +37,8 @@ require __DIR__ . '/auth.php';
 require __DIR__ . '/admin/admin.php';
 require __DIR__ . '/author.php';
 
-Route::get('/', function () {
-    return view('home');
-});
-
+Route::get('/', [CategoryController::class, 'index'])->name('index.display');
+Route::get('category/{id}', [CategoryController::class, 'getCourseCategory'])->name('get.course.category');
 // Route::get('/dashboard', function () {
 //     return view('dashboard');
 // })->middleware(['auth', 'verified'])->name('dashboard');
@@ -50,8 +50,12 @@ Route::middleware('auth')->group(function () {
     Route::get('/course/detail/{course}', [CourseControllerUser::class, 'detailCourse'])->name('course.detail');
 });
 
-Route::middleware('auth')->group(function () {
+Route::middleware('auth', 'role:member')->group(function () {
     Route::get('/course/lesson/{id}/{chapter}',  [CourseControllerUser::class, 'lessonCourseDetail'])->name('course.lesson.detail');
+
+    Route::controller(TransactionController::class)->group(function () {
+        Route::post('/course/detail/payment/{id}', 'voucherPayment')->name('payment.voucher');
+
+        Route::get('course/payment/{id}/{user_id}', 'summaryPayment')->name('summaryPayment');
+    });
 });
-
-

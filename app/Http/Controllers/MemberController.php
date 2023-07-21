@@ -29,6 +29,7 @@ class MemberController extends Controller
         $recentBought = $this->memberService->recentBought();
         $recentFinish = $this->memberService->recentFinish();
 
+
         return view('member.dashboard', [
             'menu' => parent::$memberMenuSidebar,
             'courseBought' => $courseBought,
