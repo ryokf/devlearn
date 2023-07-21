@@ -42,7 +42,7 @@ class CourseControllerUser extends Controller
         }
 
         //jika punya permission untuk lihat atau punya course dan sudah bayar
-        if ($user->hasPermissionTo('view lesson') || ($userCourse && $userCourse->payment_status == "sukses")) {
+        if ($user->hasPermissionTo('admin territory') || $user->hasPermissionTo('author territory') || ($userCourse && $userCourse->payment_status == "sukses")) {
             $nextChapter = $chapter + 1;
 
             // Query untuk mendapatkan chapter terakhir

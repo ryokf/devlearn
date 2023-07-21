@@ -22,7 +22,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::prefix('member')->group(function () {
+Route::prefix('member')->middleware(['auth', 'verified', 'role:member'])->group(function () {
     Route::controller(MemberController::class)->group(function () {
         Route::get('', 'dashboard')->name('member_dashboard');
         Route::get('/transaction', 'transaction')->name('member_transaction');
@@ -30,7 +30,7 @@ Route::prefix('member')->group(function () {
         Route::get('/course/{id}',  'show')->name('member_course_show');
         Route::get('/course/search',  'search')->name('member_course_search');
     });
-})->middleware(['auth', 'verified', 'role:member']);
+});
 
 
 require __DIR__ . '/auth.php';
@@ -50,7 +50,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/course/detail/{course}', [CourseControllerUser::class, 'detailCourse'])->name('course.detail');
 });
 
-Route::middleware('auth', 'role:member')->group(function () {
+Route::middleware('auth')->group(function () {
     Route::get('/course/lesson/{id}/{chapter}',  [CourseControllerUser::class, 'lessonCourseDetail'])->name('course.lesson.detail');
 
     Route::controller(TransactionController::class)->group(function () {

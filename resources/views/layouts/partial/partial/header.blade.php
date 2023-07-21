@@ -95,40 +95,38 @@
                             class="text-blueGray-400 fab fa-github text-lg leading-lg"></i><span
                             class="lg:hidden inline-block ml-2">Star</span></a>
                 </li> --}}
-                {{-- <li class="flex  items-stretch">
+                <li class="flex  items-stretch">
                     <span
                         class="z-10 h-full leading-snug font-normal absolute text-center text-blueGray-500 absolute bg-transparent rounded text-base items-center justify-center w-8 pl-3 py-3"><i
                             class="fas fa-search"></i></span>
                     <input type="text" placeholder="Search here..."
                         class="border-0 px-3 py-3 placeholder-blueGray-400 text-blueGray-600 relative bg-white rounded text-sm shadow outline-none focus:outline-none focus:ring w-full pl-10" />
-                </li> --}}
-                @auth
-                <li class="flex items-center">
-                    @auth
-                        <a href=@role('member')
-                        {{ route('member_dashboard') }}
-                    @endrole
-                            @role('author')
-                        {{ route('author_dashboard') }}
-                    @endrole
-                            @role('admin')
-                        {{ route('admin.index') }}
-                    @endrole
-                            class="get-started text-white font-bold px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 bg-primary uppercase text-sm shadow hover:shadow-lg ease-linear transition-all duration-150">
-                            Dashboard {{ request()->user()->roles[0]['name'] }}
-                        </a>
-                    @endauth
-                    @guest
-
-                        <a href={{ route('login') }}
-                            class="get-started text-white font-bold px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 bg-primary uppercase text-sm shadow hover:shadow-lg ease-linear transition-all duration-150">
-                            Login
-                        </a>
-                    @endguest
                 </li>
+                @auth
+                    <li class="flex items-center">
+
+                        <a class="hover:text-blueGray-500 text-blueGray-700 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
+                            href="#" onclick="openDropdown(event,'profile-pages-dropdown')">
+                            <img src="{{ asset('assets/img/avatar.png') }}" alt="">
+                            {{ auth()->user()->username }}
+                        </a>
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            <div class="hidden bg-white text-base z-50 float-left py-2 list-none text-left rounded shadow-lg min-w-48 navbar-popper"
+                                id="profile-pages-dropdown">
+                                <a href="#"
+                                    class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+                                    onclick="event.preventDefault();
+                                    this.closest('form').submit();">
+                                    Logout
+                                </a>
+                        </form>
+
+            </div>
+            </li>
         @else
             <li class="flex items-center px-3">
-                <a href="{{ route('register') }}"
+                <a href="{{ route('login') }}"
                     class="get-started text-blueGray-500 font-bold px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 active:bg-teal-600 uppercase text-sm shadow hover:shadow-lg ease-linear transition-all duration-150">
                     register
                 </a>
