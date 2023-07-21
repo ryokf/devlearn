@@ -57,5 +57,6 @@ Route::middleware('auth', 'role:member')->group(function () {
         Route::post('/course/detail/payment/{id}', 'voucherPayment')->name('payment.voucher');
 
         Route::get('course/payment/{id}/{user_id}', 'summaryPayment')->name('summaryPayment');
+        Route::post('course/payment/sendReceipt', 'payment')->name('payment');
     });
 });

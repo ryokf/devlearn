@@ -9,14 +9,12 @@
                 <div>
                     <!-- Card stats -->
                     <div class="flex flex-wrap justify-end">
-
                         <x-author_stastitic_card title="jumlah kursus yang dibeli" value="{{ count($courseBought) }}"
                             icon='fa-solid fa-book' iconBgColor="bg-primary" percentage="{{ 12.2 }}"
                             arrow="{{ null }}" />
                         <x-author_stastitic_card title="jumlah kursus yang diselesaikan" value="{{ count($coursePass) }}"
                             icon='fa-solid fa-scroll' iconBgColor="bg-primary" percentage="{{ 12.2 }}"
                             arrow="{{ null }}" />
-
                     </div>
                 </div>
             </div>
